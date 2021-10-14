@@ -1,4 +1,5 @@
 let mocks = require('../mocks');
+var winston = require('winston');
 
 (async () => {
     const database = require('../db');
@@ -81,6 +82,12 @@ const deletePokemon = async (req, res) => {
         message: `Pokemon ${pokemon.nome} deleado`,
     });
 }
+
+winston.configure({
+    transports: [
+        new (winston.transports.File)({ filename: 'arquivolog.log' })
+    ]
+});
 
 module.exports = {
     getAll,
